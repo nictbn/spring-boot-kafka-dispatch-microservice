@@ -20,12 +20,12 @@ public class DispatchService {
     public static final String DISPATCH_TRACKING_TOPIC = "dispatch.tracking";
     private static final UUID APPLICATION_ID = randomUUID();
     private final KafkaTemplate<String, Object> kafkaTemplate;
-    public void process(OrderCreated orderCreated) throws Exception {
+    public void process(String key, OrderCreated orderCreated) throws Exception {
         OrderDispatched orderDispatched = getOrderDispatchedEvent(orderCreated);
-        sendOrderDispatchedEvent(orderDispatched);
+        sendOrderDispatchedEvent(key, orderDispatched);
         DispatchPreparing dispatchPreparingEvent = getDispatchPreparingEvent(orderCreated);
-        sendDispatchPreparingEvent(dispatchPreparingEvent);
-        log.info("Sent messages: orderId: " + orderCreated.getOrderId() + " - processedById: " + APPLICATION_ID);
+        sendDispatchPreparingEvent(key, dispatchPreparingEvent);
+        log.info("Sent messages: key: " + key + " orderId: " + orderCreated.getOrderId() + " - processedById: " + APPLICATION_ID);
     }
 
     private OrderDispatched getOrderDispatchedEvent(OrderCreated orderCreated) {
@@ -36,8 +36,8 @@ public class DispatchService {
                 .build();
     }
 
-    private void sendOrderDispatchedEvent(OrderDispatched orderDispatched) throws InterruptedException, ExecutionException {
-        kafkaTemplate.send(ORDER_DISPATCHED_TOPIC, orderDispatched).get();
+    private void sendOrderDispatchedEvent(String key, OrderDispatched orderDispatched) throws InterruptedException, ExecutionException {
+        kafkaTemplate.send(ORDER_DISPATCHED_TOPIC, key, orderDispatched).get();
     }
 
     private DispatchPreparing getDispatchPreparingEvent(OrderCreated orderCreated) {
@@ -46,7 +46,7 @@ public class DispatchService {
                 .build();
     }
 
-    private void sendDispatchPreparingEvent(DispatchPreparing dispatchPreparingEvent) throws InterruptedException, ExecutionException {
-        kafkaTemplate.send(DISPATCH_TRACKING_TOPIC, dispatchPreparingEvent).get();
+    private void sendDispatchPreparingEvent(String key, DispatchPreparing dispatchPreparingEvent) throws InterruptedException, ExecutionException {
+        kafkaTemplate.send(DISPATCH_TRACKING_TOPIC, key, dispatchPreparingEvent).get();
     }
 }

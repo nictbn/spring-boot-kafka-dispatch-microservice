@@ -1,5 +1,6 @@
 package com.example.dispatch.service;
 
+import com.example.message.DispatchCompleted;
 import com.example.message.DispatchPreparing;
 import com.example.message.OrderCreated;
 import com.example.message.OrderDispatched;
@@ -8,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
@@ -25,6 +27,8 @@ public class DispatchService {
         sendOrderDispatchedEvent(key, orderDispatched);
         DispatchPreparing dispatchPreparingEvent = getDispatchPreparingEvent(orderCreated);
         sendDispatchPreparingEvent(key, dispatchPreparingEvent);
+        DispatchCompleted dispatchCompletedEvent = getDispatchCompletedEvent(orderCreated);
+        sendDispatchCompleted(key, dispatchCompletedEvent);
         log.info("Sent messages: key: " + key + " orderId: " + orderCreated.getOrderId() + " - processedById: " + APPLICATION_ID);
     }
 
@@ -48,5 +52,17 @@ public class DispatchService {
 
     private void sendDispatchPreparingEvent(String key, DispatchPreparing dispatchPreparingEvent) throws InterruptedException, ExecutionException {
         kafkaTemplate.send(DISPATCH_TRACKING_TOPIC, key, dispatchPreparingEvent).get();
+    }
+
+    private DispatchCompleted getDispatchCompletedEvent(OrderCreated orderCreated) {
+        return DispatchCompleted
+                .builder()
+                .orderId(orderCreated.getOrderId())
+                .date(new Date().toString())
+                .build();
+    }
+
+    private void sendDispatchCompleted(String key, DispatchCompleted dispatchCompletedEvent) throws ExecutionException, InterruptedException {
+        kafkaTemplate.send(DISPATCH_TRACKING_TOPIC, key, dispatchCompletedEvent).get();
     }
 }

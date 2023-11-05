@@ -1,15 +1,12 @@
 package com.example.dispatch.handler;
 
-import com.example.dispatch.message.OrderCreated;
+import com.example.message.OrderCreated;
 import com.example.dispatch.service.DispatchService;
 import com.example.dispatch.util.TestEventData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.UUID;
-
 import static java.util.UUID.randomUUID;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class OrderCreatedHandlerTest {

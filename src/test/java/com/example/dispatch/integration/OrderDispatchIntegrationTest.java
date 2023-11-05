@@ -1,9 +1,9 @@
 package com.example.dispatch.integration;
 
 import com.example.dispatch.DispatchConfiguration;
-import com.example.dispatch.message.DispatchPreparing;
-import com.example.dispatch.message.OrderCreated;
-import com.example.dispatch.message.OrderDispatched;
+import com.example.message.DispatchPreparing;
+import com.example.message.OrderCreated;
+import com.example.message.OrderDispatched;
 import com.example.dispatch.util.TestEventData;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;

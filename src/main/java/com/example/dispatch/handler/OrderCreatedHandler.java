@@ -1,6 +1,6 @@
 package com.example.dispatch.handler;
 
-import com.example.dispatch.message.OrderCreated;
+import com.example.message.OrderCreated;
 import com.example.dispatch.service.DispatchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

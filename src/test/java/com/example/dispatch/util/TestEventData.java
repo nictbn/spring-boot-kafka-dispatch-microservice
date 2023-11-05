@@ -1,6 +1,6 @@
 package com.example.dispatch.util;
 
-import com.example.dispatch.message.OrderCreated;
+import com.example.message.OrderCreated;
 
 import java.util.UUID;
 

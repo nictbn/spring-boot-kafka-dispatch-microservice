@@ -1,6 +1,6 @@
 package com.example.dispatch;
 
-import com.example.dispatch.message.OrderCreated;
+import com.example.message.OrderCreated;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;

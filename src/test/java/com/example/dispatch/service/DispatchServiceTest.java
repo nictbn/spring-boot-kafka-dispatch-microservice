@@ -1,12 +1,11 @@
 package com.example.dispatch.service;
 
-import com.example.dispatch.message.DispatchPreparing;
-import com.example.dispatch.message.OrderCreated;
-import com.example.dispatch.message.OrderDispatched;
+import com.example.message.DispatchPreparing;
+import com.example.message.OrderCreated;
+import com.example.message.OrderDispatched;
 import com.example.dispatch.util.TestEventData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import java.util.concurrent.CompletableFuture;

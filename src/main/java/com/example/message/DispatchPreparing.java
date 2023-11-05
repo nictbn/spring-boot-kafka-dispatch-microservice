@@ -1,4 +1,4 @@
-package com.example.dispatch.message;
+package com.example.message;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,13 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.UUID;
-
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class OrderDispatched {
+@AllArgsConstructor
+public class DispatchPreparing {
     UUID orderId;
-    UUID processedById;
-    String notes;
 }

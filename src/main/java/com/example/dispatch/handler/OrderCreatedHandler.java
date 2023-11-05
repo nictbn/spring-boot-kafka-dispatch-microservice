@@ -24,6 +24,7 @@ import org.springframework.stereotype.Component;
 public class OrderCreatedHandler {
 
     private final DispatchService dispatchService;
+    @KafkaHandler
     public void listen(
             @Header(KafkaHeaders.RECEIVED_PARTITION) Integer partition,
             @Header(KafkaHeaders.RECEIVED_KEY) String key,

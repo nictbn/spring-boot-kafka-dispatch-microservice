@@ -27,7 +27,7 @@ public class OrderCreatedHandler {
             @Header(KafkaHeaders.RECEIVED_KEY) String key,
             @Payload OrderCreated payload
     ) {
-        log.info("Received message partition:" + partition + " - key " + key +" = payload: " + payload);
+        log.info("Received message partition: " + partition + " - key " + key +" - payload: " + payload);
         try {
             dispatchService.process(key, payload);
         } catch (Exception e) {
